@@ -12,8 +12,17 @@ struct ContentView: View {
     @EnvironmentObject var appState: AppState
     
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        VStack{
+            CardView()
+            HStack{
+                HomeButtomView(imageName: "undo-button")
+                HomeButtomView(imageName: "dislike-button")
+                HomeButtomView(imageName: "flash-button")
+                HomeButtomView(imageName: "like-button")
+                HomeButtomView(imageName: "flash-button")
+            }
+            
+        }
     }
 }
 
