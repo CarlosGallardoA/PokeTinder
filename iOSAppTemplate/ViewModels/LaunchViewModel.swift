@@ -6,11 +6,11 @@
 //
 
 import Foundation
-
+import FirebaseAuth
 class LaunchViewModel: ObservableObject {
     //instanciar appState
     let appState = AppState.shared
     init() {
-        appState.currentScreen = .home
+        appState.currentScreen = Auth.auth().currentUser != nil ? .main : .login
     }
 }
