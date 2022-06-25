@@ -10,18 +10,29 @@ import SwiftUI
 struct ContentView: View {
     
     @EnvironmentObject var appState: AppState
+    @StateObject var homeViewModel = HomeViewModel()
     
     var body: some View {
-        VStack{
-            CardView()
-            HStack{
-                HomeButtomView(imageName: "undo-button")
-                HomeButtomView(imageName: "dislike-button")
-                HomeButtomView(imageName: "flash-button")
-                HomeButtomView(imageName: "like-button")
-                HomeButtomView(imageName: "flash-button")
+        NavigationView {
+            VStack {
+                ZStack {
+                    ForEach(homeViewModel.pokemons, id: \.name) { pokemon in
+                        CardView(pokemon: pokemon)
+                    }
+                }
+                HStack {
+                    HomeButtomView(imageName: "undo-button")
+                    HomeButtomView(imageName: "dislike-button")
+                    HomeButtomView(imageName: "super-like-button")
+                    HomeButtomView(imageName: "like-button")
+                    HomeButtomView(imageName: "flash-button")
+                }
+                .padding()
             }
-            
+            .navigationBarHidden(true)
+        }
+        .task {
+            homeViewModel.getPokemonByUserId()
         }
     }
 }

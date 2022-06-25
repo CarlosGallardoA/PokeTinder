@@ -12,6 +12,7 @@ struct SigninView: View {
     @StateObject var authViewModel = AuthViewModel()
     @State private var email: String = ""
     @State private var password: String = ""
+    @State private var alertError: Bool = false
     var body: some View {
         NavigationView {
             ScrollView() {
@@ -47,7 +48,15 @@ struct SigninView: View {
                             Text("Not a member? Register now")
                         }
                     }.padding()
+                }.alert(isPresented: $alertError){
+                    Alert(title: Text("Error"), message: Text(authViewModel.errorMessage), dismissButton: .default(Text("Ok"))
+                    )
                 }
+                .onReceive(authViewModel.$showError, perform: {
+                    newValue in
+                        print("newValue  \(newValue)")
+                        alertError = newValue
+                })
             }
         }.accentColor(.yellow)
     }
